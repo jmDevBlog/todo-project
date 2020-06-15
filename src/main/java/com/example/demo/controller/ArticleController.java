@@ -56,7 +56,7 @@ public class ArticleController {
 		sb.append("</script>");
 
 		return sb.toString();
-	}
+	} 
 	
 	@RequestMapping("/article/doDelete")
 	@ResponseBody

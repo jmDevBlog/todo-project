@@ -1,0 +1,62 @@
+spring:
+  profiles:
+    active: local # 기본적으로 local이 선택된다는 뜻
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp/ 
+      suffix: .jsp
+  datasource:
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+    url: jdbc:log4jdbc:mysql://127.0.0.1:3306/site1?autoReconnect=true&useUnicode=true&characterEncoding=utf8&serverTimezone=UTC 
+    username: root
+    password:
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 100MB
+      max-request-size: 100MB      
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: systemdata227@gmail.com
+    password: wjdals227!
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+mybatis:
+  type-aliases-package: com.example.demo.dto
+custom:
+  logoText: 사이트1 
+  uploadDir: C:/my_work/site1/uploads 
+  emailSender: no-reply@noreply.com 
+  emailSenderName: 사이트 관리자
+
+---
+
+spring:
+  profiles: local
+server:
+  port: 8085 # 포트번호 치환
+
+---
+
+# 운영환경만의 설정
+spring:
+  profiles: production
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/site1?autoReconnect=true&useUnicode=true&characterEncoding=utf8&serverTimezone=UTC # DB명 치환(서비스 용)
+    username: site1 # DB아이디 치환(서비스 용)
+    password:  # DB비번 치환(서비스 용)
+logging:
+  level:
+    root: info
+server:
+  port: 8086 # 포트번호 치환(서비스 용)
+custom:
+  uploadDir: web/site1/public/uploads # 파일업로드 되는 곳 치환(서비스용)
+  
+  

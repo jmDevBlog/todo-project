@@ -15,15 +15,31 @@
 	
 	
 	<insert id="create" parameterType="String">
-		INSERT INTO todogrp(title, sdate, ddate) 
-		VALUES(#{title},NOW(),NOW())
+		INSERT INTO todogrp(title, sdate) 
+		VALUES(#{title},NOW())
 	</insert>
 	
 	<delete id="delete" parameterType="int">
 		DELETE FROM todogrp
 		WHERE ID = #{id}
 	</delete>
-
 	
+	<update id="done" parameterType="int">
+		UPDATE todogrp
+		SET done = 1, ddate = NOW()
+		WHERE ID = #{id}
+	</update>
+
+	<update id="modify" parameterType="Article">
+		UPDATE todogrp
+		SET title = #{title}
+		WHERE ID = #{id}
+	</update>
+	
+	<select id="read" resultType="Article" parameterType="int">
+     SELECT *
+     FROM todogrp
+     WHERE ID = #{id}
+   </select> 
 
 </mapper>

@@ -74,7 +74,7 @@ body, ul, li {
 						<td>${article.title}</td>
 						<td>${article.sdate }</td>
 						<td>${article.ddate }</td>
-						<td>${article.done }</td>
+						<td><a href="./done?id=${article.id }">${article.done }</a></td>
 						<td><a href="./modify?id=${article.id}">수정</a> / <a href="./doDelete?id=${article.id}">삭제</a></td>
 					</tr>
 				</c:forEach>

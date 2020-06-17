@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -22,7 +23,7 @@ public class ArticleController {
 	@Autowired
 	private ArticleService articleService;
 	// get post 명시 
-	@RequestMapping("/article/list")
+	@RequestMapping(value="/article/list", method=RequestMethod.GET)
 	public String showList(Model model) {
 		List<Article> articleList = articleService.getList();
 		int totalCount = articleService.getTotalCount();
@@ -34,13 +35,13 @@ public class ArticleController {
 		return "article/list";
 	}
 	
-	@RequestMapping("/article/create")
+	@RequestMapping(value="/article/create", method=RequestMethod.GET)
 	public String showCreate() {
 
 		return "article/create";
 	}
 	
-	@RequestMapping("/article/docreate")
+	@RequestMapping(value="/article/docreate", method=RequestMethod.POST)
 	@ResponseBody
 	public String doCreate(@RequestParam String title) {
 		articleService.create(title);
@@ -56,9 +57,9 @@ public class ArticleController {
 		sb.append("</script>");
 
 		return sb.toString();
-	} 
+	}
 	
-	@RequestMapping("/article/doDelete")
+	@RequestMapping(value="/article/delete", method=RequestMethod.POST)
 	@ResponseBody
 	public String doDelete(int id) {
 		articleService.delete(id);
@@ -75,5 +76,52 @@ public class ArticleController {
 
 		return sb.toString();
 	}
+	
+	@RequestMapping(value="/article/done", method=RequestMethod.POST)
+	@ResponseBody
+	public String doDone(int id) {
+		articleService.done(id);
+		
+		String msg = id + "번 할일 완료";
+				
+		StringBuilder sb = new StringBuilder();
+
+		sb.append("alert('" + msg + "');");
+		sb.append("location.replace('./list');");
+
+		sb.insert(0, "<script>");
+		sb.append("</script>");
+
+		return sb.toString();
+	}
+	
+	
+	@RequestMapping(value="/article/modify", method=RequestMethod.GET)
+	public String showModify() {
+
+		return "article/modify";
+	}
+	
+	@RequestMapping(value="/article/domodify", method=RequestMethod.POST)
+	@ResponseBody
+	public String doModify(@RequestParam int id, String title ) {
+		
+		Article article = articleService.read(id);
+		article.setTitle(title);
+		articleService.modify(article);
+		
+		String msg = "주제가 변경 되었습니다.";
+				
+		StringBuilder sb = new StringBuilder();
+
+		sb.append("alert('" + msg + "');");
+		sb.append("location.replace('./list');");
+
+		sb.insert(0, "<script>");
+		sb.append("</script>");
+
+		return sb.toString();
+	}
+	
 
 }

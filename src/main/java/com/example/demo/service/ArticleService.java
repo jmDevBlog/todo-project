@@ -28,6 +28,18 @@ public class ArticleService {
 		articleDao.delete(id);
 		
 	}
+	public void done(int id) {
+		articleDao.done(id);
+		
+	}
+	public void modify(Article article) {
+		articleDao.modify(article);
+		
+	}
+	public Article read(int id){
+		Article article = articleDao.read(id);
+		return article;
+	}
 	
 
 }

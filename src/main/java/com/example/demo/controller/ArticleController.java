@@ -59,7 +59,7 @@ public class ArticleController {
 		return sb.toString();
 	}
 	
-	@RequestMapping(value="/article/delete", method=RequestMethod.POST)
+	@RequestMapping(value="/article/doDelete", method=RequestMethod.GET)
 	@ResponseBody
 	public String doDelete(int id) {
 		articleService.delete(id);
@@ -77,7 +77,7 @@ public class ArticleController {
 		return sb.toString();
 	}
 	
-	@RequestMapping(value="/article/done", method=RequestMethod.POST)
+	@RequestMapping(value="/article/done", method=RequestMethod.GET)
 	@ResponseBody
 	public String doDone(int id) {
 		articleService.done(id);

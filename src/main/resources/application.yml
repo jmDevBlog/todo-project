@@ -47,7 +47,7 @@ server:
 spring:
   profiles: production
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/site1?autoReconnect=true&useUnicode=true&characterEncoding=utf8&serverTimezone=UTC # DB명 치환(서비스 용)
     username: site1 # DB아이디 치환(서비스 용)
     password:  # DB비번 치환(서비스 용)

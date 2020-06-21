@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,39 +17,41 @@ import com.example.demo.service.ArticleService;
 
 import groovy.util.logging.Slf4j;
 import jline.internal.Log;
+import lombok.RequiredArgsConstructor;
 
 @Controller
 @Slf4j
+@RequiredArgsConstructor
 public class ArticleController {
-	// localhost:8085/article/list
-	@Autowired
+	// localhost:8085/list
 	private ArticleService articleService;
-	// get post 명시 
-	@RequestMapping(value="/article/list", method=RequestMethod.GET)
+	
+	@GetMapping("/list")
 	public String showList(Model model) {
 		List<Article> articleList = articleService.getList();
 		int totalCount = articleService.getTotalCount();
-		Log.info("articlelist : " + articleList);
+		//Log.info("articlelist : " + articleList);
 		
 		model.addAttribute("articleList", articleList);
 		model.addAttribute("totalCount", totalCount);
 		
-		return "article/list";
+		return "/list";
 	}
 	
-	@RequestMapping(value="/article/create", method=RequestMethod.GET)
+	@GetMapping("/create")
 	public String showCreate() {
 
-		return "article/create";
+		return "/create";
 	}
 	
-	@RequestMapping(value="/article/docreate", method=RequestMethod.POST)
+	@PostMapping("/docreate")
 	@ResponseBody
 	public String doCreate(@RequestParam String title) {
 		articleService.create(title);
 		
 		String msg = "할 일이 추가 되었습니다.";
 				
+		// private 메소드로 빼보기
 		StringBuilder sb = new StringBuilder();
 
 		sb.append("alert('" + msg + "');");
@@ -59,7 +63,7 @@ public class ArticleController {
 		return sb.toString();
 	}
 	
-	@RequestMapping(value="/article/doDelete", method=RequestMethod.GET)
+	@GetMapping("/doDelete")
 	@ResponseBody
 	public String doDelete(int id) {
 		articleService.delete(id);
@@ -77,7 +81,7 @@ public class ArticleController {
 		return sb.toString();
 	}
 	
-	@RequestMapping(value="/article/done", method=RequestMethod.GET)
+	@GetMapping("/done")
 	@ResponseBody
 	public String doDone(int id) {
 		articleService.done(id);
@@ -95,14 +99,13 @@ public class ArticleController {
 		return sb.toString();
 	}
 	
-	
-	@RequestMapping(value="/article/modify", method=RequestMethod.GET)
+	@GetMapping("/modify")
 	public String showModify() {
 
-		return "article/modify";
+		return "/modify";
 	}
 	
-	@RequestMapping(value="/article/domodify", method=RequestMethod.POST)
+	@PostMapping("/domodify")
 	@ResponseBody
 	public String doModify(@RequestParam int id, String title ) {
 		

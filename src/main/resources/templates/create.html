@@ -3,6 +3,16 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>TO-DO create</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
 <style>
 	.con{
@@ -36,6 +46,7 @@
 
 </head>
 <body>
+<header th:include="/header.html"></header>
 
 <h1>TODO 생성</h1>
 	
@@ -54,9 +65,11 @@
 	</script>
 	
 	<form class="con common-form" th:action="@{/docreate}" method="POST" onsubmit="submitCreateForm(this); return false;">
+		<input type='hidden' name='userId' id='userId' th:value=${session.principal}>
+		<div th:text="${session.principal}">${session.principal}</div>
 		<div>
 			<span>
-				주제
+				주제 
 			</span>
 			<div>
 				<input name ="title" type="text" placeholder="주제작성" autofocus="autofocus">
@@ -75,5 +88,6 @@
 		
 	</form>
 
+<footer th:include="/footer.html"></footer>
 </body>
 </html>

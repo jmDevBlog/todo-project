@@ -1,10 +1,10 @@
 spring:
   profiles:
     active: local # 기본적으로 local이 선택된다는 뜻
-  mvc:
-    view:
-      prefix: /WEB-INF/jsp/ 
-      suffix: .jsp
+#  mvc:
+#    view:
+#      prefix: /WEB-INF/jsp/ 
+#      suffix: .jsp
   datasource:
     driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
     url: jdbc:log4jdbc:mysql://127.0.0.1:3306/site1?autoReconnect=true&useUnicode=true&characterEncoding=utf8&serverTimezone=UTC 
@@ -26,14 +26,21 @@ spring:
           auth: true
           starttls:
             enable: true
-mybatis:
-  type-aliases-package: com.example.demo.dto
-custom:
-  logoText: 사이트1 
-  uploadDir: C:/my_work/site1/uploads 
-  emailSender: no-reply@noreply.com 
-  emailSenderName: 사이트 관리자
+  jpa:
+    open-in-view: true
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      use-new-id-generator-mappings: false
+    show-sql: true
+    properties:
+      hibernate.format_sql: true
 
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
+      
 ---
 
 spring:
@@ -58,5 +65,4 @@ server:
   port: 8086 # 포트번호 치환(서비스 용)
 custom:
   uploadDir: web/site1/public/uploads # 파일업로드 되는 곳 치환(서비스용)
-  
   
